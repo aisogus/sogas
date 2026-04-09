@@ -145,7 +145,7 @@ const categoryData = {
       { id: 6, title: "办法怕的一天 纪录片", tag: "" },
       { id: 7, title: "创新报告：科只·温里德福", tag: "" },
       { id: 8, title: "创纪录时：巨人", tag: "" },
-      { id: 9, title: "创纪录时：巨人", tag: "" },
+      { id: 9, title: "创��录时：巨人", tag: "" },
       { id: 10, title: "创纪录时：巨人", tag: "" },
       { id: 11, title: "创纪录内：暴富", tag: "" },
       { id: 12, title: "大自然故事 纪录片", tag: "" },
@@ -378,36 +378,44 @@ export default function HomePage() {
       <main className="max-w-7xl mx-auto px-4 py-5">
         <HotResources items={hotResourcesData} />
         
-        {/* 分类区域 - 按原始截图4列布局，共4行16个分类 */}
-        {/* 第1行: 音乐、短剧、订阅、小吃美食 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
+        {/* 分类区域 - 3列布局 */}
+        {/* 第1行: 音乐、短剧、订阅 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
           <CategorySection {...categoryData.music} />
           <CategorySection {...categoryData.shortDrama} />
           <CategorySection {...categoryData.subscription} />
-          <CategorySection {...categoryData.food} />
         </div>
 
-        {/* 第2行: 电影、电视剧、纪录片、软件 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        {/* 第2行: 小吃美食、电影、电视剧 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+          <CategorySection {...categoryData.food} />
           <CategorySection {...categoryData.movie} />
           <CategorySection {...categoryData.tvShow} />
-          <CategorySection {...categoryData.documentary} />
-          <CategorySection {...categoryData.software} />
         </div>
 
-        {/* 第3行: 学科、游戏、玄学、戏曲 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        {/* 第3行: 纪录片、软件、学科 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+          <CategorySection {...categoryData.documentary} />
+          <CategorySection {...categoryData.software} />
           <CategorySection {...categoryData.subject} />
+        </div>
+
+        {/* 第4行: 游戏、玄学、戏曲 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           <CategorySection {...categoryData.game} />
           <CategorySection {...categoryData.metaphysics} />
           <CategorySection {...categoryData.opera} />
         </div>
 
-        {/* 第4行: 小说、书籍、设计、标准 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        {/* 第5行: 小说、书籍、设计 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           <CategorySection {...categoryData.novel} />
           <CategorySection {...categoryData.book} />
           <CategorySection {...categoryData.design} />
+        </div>
+
+        {/* 第6行: 标准 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           <CategorySection {...categoryData.standard} />
         </div>
       </main>

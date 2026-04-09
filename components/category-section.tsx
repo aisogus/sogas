@@ -13,13 +13,6 @@ interface CategorySectionProps {
 }
 
 export function CategorySection({ title, icon, items }: CategorySectionProps) {
-  // 将items分成3列，每列5个
-  const columns = [
-    items.slice(0, 5),
-    items.slice(5, 10),
-    items.slice(10, 15),
-  ]
-
   return (
     <div className="bg-card border border-border rounded-lg overflow-hidden">
       {/* 标题栏 */}
@@ -34,23 +27,22 @@ export function CategorySection({ title, icon, items }: CategorySectionProps) {
         </button>
       </div>
 
-      {/* 3列布局 */}
-      <div className="grid grid-cols-3 divide-x divide-border/50">
-        {columns.map((column, colIndex) => (
-          <div key={colIndex} className="divide-y divide-border/30">
-            {column.map((item, itemIndex) => (
-              <div
-                key={item.id}
-                className="flex items-center gap-1 px-2 h-7 hover:bg-muted/30 transition-colors cursor-pointer group"
-              >
-                <span className="text-muted-foreground text-xs w-3 tabular-nums shrink-0">
-                  {colIndex * 5 + itemIndex + 1}
-                </span>
-                <span className="text-foreground text-xs truncate flex-1 group-hover:text-primary transition-colors leading-none">
-                  {item.title}
-                </span>
-              </div>
-            ))}
+      {/* 单列15行布局 */}
+      <div className="divide-y divide-border/30">
+        {items.slice(0, 15).map((item, index) => (
+          <div
+            key={item.id}
+            className="flex items-center gap-2 px-3 h-7 hover:bg-muted/30 transition-colors cursor-pointer group"
+          >
+            <span className="text-muted-foreground text-xs w-4 tabular-nums shrink-0">
+              {index + 1}
+            </span>
+            <span className="text-foreground text-sm truncate flex-1 group-hover:text-primary transition-colors">
+              {item.title}
+            </span>
+            <span className="text-muted-foreground text-xs shrink-0">
+              {item.tag}
+            </span>
           </div>
         ))}
       </div>
