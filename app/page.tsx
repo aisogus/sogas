@@ -1,9 +1,9 @@
 import { Header } from "@/components/header"
 import { AlertBanner } from "@/components/alert-banner"
-import { TabNav } from "@/components/tab-nav"
 import { HotResources } from "@/components/hot-resources"
 import { CategorySection } from "@/components/category-section"
 import { Footer } from "@/components/footer"
+import { FloatingButtons } from "@/components/floating-buttons"
 
 // 模拟数据
 const categoryData = {
@@ -346,27 +346,27 @@ const categoryData = {
 }
 
 const hotResourcesData = [
-  { id: 1, title: "ArtPepperEverythingHappensToMe-LiveAT1...", tag: "音乐", color: "pink" },
-  { id: 2, title: "Gorillaz-DemonDays 音乐", tag: "音乐", color: "pink" },
-  { id: 3, title: "小吃美食·美", tag: "美食", color: "orange" },
-  { id: 4, title: "DamianooDavid-FUNNYlittleFEARS 音乐", tag: "音乐", color: "pink" },
-  { id: 5, title: "Fugees-GreatestHits 音乐", tag: "音乐", color: "pink" },
-  { id: 6, title: "ToriAmos-StrangeLittleGirls 音乐", tag: "音乐", color: "pink" },
-  { id: 7, title: "宇多田·有月殿裂斯墙填填 音乐", tag: "音乐", color: "pink" },
-  { id: 8, title: "NtisLandgren-LiveofMyLife 音乐", tag: "音乐", color: "pink" },
-  { id: 9, title: "五轮美·真 小说", tag: "小说", color: "blue" },
-  { id: 10, title: "GabrielSmallwood-Juvenilia 音乐", tag: "音乐", color: "pink" },
-  { id: 11, title: "五行之门 玄学", tag: "玄学", color: "purple" },
-  { id: 12, title: "AlexanderMalofeev-ForgottenMelodies...", tag: "音乐", color: "pink" },
-  { id: 13, title: "所有我们都看不见的光 电视剧", tag: "电视剧", color: "green" },
-  { id: 14, title: "柯乌鸦飞翔", tag: "书籍", color: "yellow" },
-  { id: 15, title: "LaurynHill-MTVUnpluggedNo2.0 音乐", tag: "音乐", color: "pink" },
-  { id: 16, title: "EshaTewari-WhatMakesaGirlsGirl 音乐", tag: "音乐", color: "pink" },
-  { id: 17, title: "最危险！勤物商店 游戏", tag: "游戏", color: "cyan" },
-  { id: 18, title: "OliviaBelli-Daiman-PianoConcerto,IthacaSuite6-...", tag: "音乐", color: "pink" },
-  { id: 19, title: "果色彻雄", tag: "音乐", color: "pink" },
-  { id: 20, title: "BEYOND-MORE 音乐", tag: "音乐", color: "pink" },
-  { id: 21, title: "U2DaysOfManEP 音乐", tag: "音乐", color: "pink" },
+  { id: 1, title: "ArtPepperEverythingHappensToMe-LiveAT...", tag: "音乐", color: "pink", badge: "hot" as const },
+  { id: 2, title: "Gorillaz-DemonDays", tag: "音乐", color: "pink", badge: "recommend" as const },
+  { id: 3, title: "小城大事", tag: "小说", color: "blue", badge: "hot" as const },
+  { id: 4, title: "DamianoDavid-FUNNYlittleFEARS", tag: "音乐", color: "pink" },
+  { id: 5, title: "Fugees-GreatestHits", tag: "音乐", color: "pink" },
+  { id: 6, title: "ToriAmos-StrangeLittleGirls", tag: "音乐", color: "pink" },
+  { id: 7, title: "周华健-有弦相聚限量编号版", tag: "音乐", color: "pink" },
+  { id: 8, title: "NilsLandgren-LoveofMyLife", tag: "音乐", color: "pink" },
+  { id: 9, title: "神印王座", tag: "小说", color: "blue" },
+  { id: 10, title: "GabrielSmallwood-Juvenilia", tag: "音乐", color: "pink" },
+  { id: 11, title: "玄界之门", tag: "玄学", color: "purple" },
+  { id: 12, title: "AlexanderMalofeev-ForgottenMelodies", tag: "音乐", color: "pink" },
+  { id: 13, title: "所有我们看不见的光", tag: "电视剧", color: "green" },
+  { id: 14, title: "锦绣前程", tag: "电视剧", color: "green" },
+  { id: 15, title: "LaurynHill-MTVUnpluggedNo.2.0", tag: "音乐", color: "pink" },
+  { id: 16, title: "EshaTewari-WhatMakesaGirlsGirl", tag: "音乐", color: "pink" },
+  { id: 17, title: "集合啦！动物森友", tag: "游戏", color: "cyan" },
+  { id: 18, title: "OliviaBelli-Daimon-PianoConcerto,IthacaSuite&...", tag: "音乐", color: "pink" },
+  { id: 19, title: "黑色党徒", tag: "电影", color: "orange" },
+  { id: 20, title: "BEYOND-MORE", tag: "音乐", color: "pink" },
+  { id: 21, title: "U2DaysOfAshEP", tag: "音乐", color: "pink" },
 ]
 
 export default function HomePage() {
@@ -374,8 +374,8 @@ export default function HomePage() {
     <div className="min-h-screen bg-background">
       <Header />
       <AlertBanner />
+      <FloatingButtons />
       <main className="max-w-7xl mx-auto px-4 py-4">
-        <TabNav />
         <HotResources items={hotResourcesData} />
         
         {/* 分类区域 - 4列布局 */}
