@@ -375,32 +375,32 @@ export default function HomePage() {
       <Header />
       <AlertBanner />
       <FloatingButtons />
-      <main className="max-w-7xl mx-auto px-4 py-4">
+      <main className="max-w-7xl mx-auto px-4 py-5">
         <HotResources items={hotResourcesData} />
         
         {/* 分类区域 - 4列布局 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
           <CategorySection {...categoryData.music} />
           <CategorySection {...categoryData.shortDrama} />
           <CategorySection {...categoryData.subscription} />
           <CategorySection {...categoryData.food} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           <CategorySection {...categoryData.movie} />
           <CategorySection {...categoryData.tvShow} />
           <CategorySection {...categoryData.documentary} />
           <CategorySection {...categoryData.software} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           <CategorySection {...categoryData.subject} />
           <CategorySection {...categoryData.game} />
           <CategorySection {...categoryData.metaphysics} />
           <CategorySection {...categoryData.opera} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           <CategorySection {...categoryData.novel} />
           <CategorySection {...categoryData.book} />
           <CategorySection {...categoryData.design} />

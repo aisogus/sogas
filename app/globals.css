@@ -75,8 +75,8 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: var(--font-noto-sans-sc), "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -119,7 +119,27 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    font-size: 14px;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground leading-relaxed;
+    font-feature-settings: "kern" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* 统一字体大小 */
+  .text-xs {
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+  .text-sm {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .text-base {
+    font-size: 1rem;
+    line-height: 1.6;
   }
 }

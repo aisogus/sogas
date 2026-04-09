@@ -23,11 +23,11 @@ export function Footer() {
     <footer className="bg-card border-t border-border mt-8">
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* 分类标签 */}
-        <div className="flex flex-wrap gap-2 justify-center mb-6">
+        <div className="flex flex-wrap gap-2 justify-center mb-5">
           {footerCategories.map((category) => (
             <button
               key={category}
-              className="px-3 py-1.5 text-xs text-muted-foreground bg-muted rounded-full hover:bg-accent hover:text-accent-foreground transition-colors"
+              className="px-3 py-1.5 text-sm text-muted-foreground bg-muted/50 rounded-full hover:bg-muted hover:text-foreground transition-colors"
             >
               {category}
             </button>
@@ -35,7 +35,7 @@ export function Footer() {
         </div>
 
         {/* 底部链接 */}
-        <div className="flex flex-wrap gap-4 justify-center text-xs text-muted-foreground mb-4">
+        <div className="flex flex-wrap gap-6 justify-center text-sm text-muted-foreground mb-4">
           {footerLinks.map((link) => (
             <a
               key={link}
@@ -48,11 +48,11 @@ export function Footer() {
         </div>
 
         {/* 版权信息 */}
-        <div className="text-center">
-          <p className="text-xs text-muted-foreground">
+        <div className="text-center space-y-1">
+          <p className="text-xs text-muted-foreground leading-relaxed">
             免责声明：本站资料非官方存储免费分享。不得依据任何法规传播或使用，不存储任何违规隐私和支付数据
           </p>
-          <p className="text-xs text-muted-foreground mt-1">
+          <p className="text-xs text-muted-foreground">
             联系邮箱：example@email.com
           </p>
         </div>
