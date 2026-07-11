@@ -4,17 +4,14 @@ import { NextRequest, NextResponse } from "next/server"
 const PAN_SOU_API_URL = process.env.PAN_SOU_API_URL || "http://124.220.76.89:8080/api"
 
 /**
- * GET /api/resource/:id
+ * GET /api/resource?id=:id
  * Fetch resource details from pan sou API
  */
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest) {
   try {
-    // Wait for params in Next.js 15+
-    const resolvedParams = await params
-    const resourceId = resolvedParams.id
+    // Get resource ID from query parameters
+    const { searchParams } = new URL(request.url)
+    const resourceId = searchParams.get("id")
     
     // If no resource ID is provided, return an error
     if (!resourceId) {
