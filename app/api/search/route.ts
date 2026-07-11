@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
-// Pan sou API base URL
-const PAN_SOU_API_URL = process.env.PAN_SOU_API_URL || "http://124.220.76.89:8080/api"
+// Pan Sou API base URL
+const PAN_SOU_API_BASE_URL = process.env.PAN_SOU_API_URL || "http://124.220.76.89:8080/api"
 
 // Simple in-memory cache
 const cache = new Map()
@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
     })
     
     // Make request to pan sou API
-    const response = await fetch(`${PAN_SOU_API_URL}/search?${queryParams}`, {
+    const response = await fetch(`${PAN_SOU_API_BASE_URL}/search?${queryParams}`, {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
