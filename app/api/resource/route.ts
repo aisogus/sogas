@@ -1,21 +1,31 @@
 import { NextRequest, NextResponse } from "next/server"
 
-// Pan sou API base URL
+// Pan sou API base URL - Updated for fix
 const PAN_SOU_API_URL = process.env.PAN_SOU_API_URL || "http://124.220.76.89:8080/api"
 
 /**
- * GET /api/resource/:id
+ * GET /api/resource?id=:id
  * Fetch resource details from pan sou API
  */
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest) {
   try {
-    const resourceId = params.id
+    // Get resource ID from query parameters
+    const { searchParams } = new URL(request.url)
+    const resourceId = searchParams.get("id")
     
-    // In a real implementation, we would fetch the specific resource
-    // For now, we'll search for resources with the ID as query
+    // If no resource ID is provided, return an error
+    if (!resourceId) {
+      return NextResponse.json(
+        { 
+          code: 400, 
+          message: "Resource ID is required", 
+          data: null 
+        },
+        { status: 400 }
+      )
+    }
+    
+    // Search for the specific resource
     const response = await fetch(`${PAN_SOU_API_URL}/search?q=${encodeURIComponent(resourceId)}&page=1&size=1`, {
       method: "GET",
       headers: {
@@ -94,3 +104,7 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+
+// Export config for route
+export const dynamic = "force-dynamic"
+export const runtime = "nodejs"

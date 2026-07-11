@@ -1,47 +1,39 @@
-import type { Metadata } from 'next'
-import { Noto_Sans_SC } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
+import "@/app/globals.css"
+import { Inter } from "next/font/google"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Analytics } from "@vercel/analytics/react"
+import { Metadata } from "next"
+import { seoMetadata } from "@/lib/seo-metadata"
 
-const notoSansSC = Noto_Sans_SC({ 
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-noto-sans-sc",
-});
+const inter = Inter({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
-  title: '搜源盘 - 资源搜索分享平台',
-  description: '搜源盘是一个免费的资源搜索分享平台，提供音乐、电影、电视剧、软件、书籍等各类资源',
-  generator: 'v0.app',
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
-}
+export const metadata: Metadata = seoMetadata
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
-    <html lang="zh-CN">
-      <body className={`${notoSansSC.variable} font-sans antialiased`}>
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+    <html lang="zh-CN" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="盘搜 - 全网资源一站式搜索平台，快速搜索百度网盘、阿里云盘、夸克网盘等主流网盘资源" />
+        <meta name="keywords" content="网盘搜索,百度网盘,阿里云盘,夸克网盘,资源搜索,电影下载,软件搜索" />
+        <meta property="og:title" content="盘搜 - 全网资源一站式搜索平台" />
+        <meta property="og:description" content="快速搜索百度网盘、阿里云盘、夸克网盘等主流网盘资源" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="zh_CN" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="盘搜 - 全网资源一站式搜索平台" />
+        <meta name="twitter:description" content="快速搜索百度网盘、阿里云盘、夸克网盘等主流网盘资源" />
+      </head>
+      <body className={inter.className}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          {children}
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   )
