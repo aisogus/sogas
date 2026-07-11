@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
-// Pan sou API base URL
+// Pan sou API base URL - Updated for fix
 const PAN_SOU_API_URL = process.env.PAN_SOU_API_URL || "http://124.220.76.89:8080/api"
 
 /**
