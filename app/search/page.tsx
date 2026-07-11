@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { FloatingButtons } from "@/components/floating-buttons"
@@ -64,7 +65,9 @@ const colorMap: Record<string, string> = {
 }
 
 export default function SearchPage() {
-  const [query, setQuery] = useState("")
+  const searchParams = useSearchParams()
+  const initialQuery = searchParams.get("q") || ""
+  const [query, setQuery] = useState(initialQuery)
   const [results, setResults] = useState<SearchApiResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -104,12 +107,13 @@ export default function SearchPage() {
     }
   }
 
-  // Initial search when component mounts with query
+  // Initial search when component mounts with query from URL
   useEffect(() => {
-    if (query) {
-      searchResources(query, page)
+    if (initialQuery) {
+      setQuery(initialQuery)
+      searchResources(initialQuery, 1)
     }
-  }, [query, page])
+  }, [initialQuery])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
