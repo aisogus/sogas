@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-export const metadata: Metadata = {
+export const seoMetadata: Metadata = {
   title: "盘搜 - 全网资源一站式搜索平台",
   description: "快速搜索百度网盘、阿里云盘、夸克网盘等主流网盘资源，电影、音乐、软件、教程应有尽有",
   keywords: ["网盘搜索", "百度网盘", "阿里云盘", "夸克网盘", "资源搜索", "电影下载", "软件搜索"],
