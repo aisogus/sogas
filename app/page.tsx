@@ -3,7 +3,7 @@ import { AlertBanner } from "@/components/alert-banner"
 import { HotResources } from "@/components/hot-resources"
 import { CategorySection } from "@/components/category-section"
 import { Footer } from "@/components/footer"
-import { FloatingButtons } from "@/components/floating-buttons"
+import { FloatingButtons } from "@/components/floating-buttons"s } from "@/components/floating-buttons"
 
 // 模拟数据
 const categoryData = {
@@ -374,7 +374,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-background">
       <Header />
       <AlertBanner />
-      <FloatingButtons />
+      <FloatingButtonss />
       <main className="max-w-7xl mx-auto px-4 py-5">
         <HotResources items={hotResourcesData} />
         
