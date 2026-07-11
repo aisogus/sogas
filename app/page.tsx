@@ -17,6 +17,132 @@ import { Search, TrendingUp, Film, Music, Code, BookOpen, Zap, Shield, Globe, St
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
+// Mock data for hot resources
+const hotResources = [
+  { id: 1, title: "复仇者联盟4：终局之战", tag: "科幻", color: "red", badge: "hot" },
+  { id: 2, title: "流浪地球2", tag: "科幻", color: "orange", badge: "recommend" },
+  { id: 3, title: "满江红", tag: "喜剧", color: "yellow" },
+  { id: 4, title: "无名", tag: "剧情", color: "blue" },
+  { id: 5, title: "新神榜：杨戬", tag: "动画", color: "green" },
+  { id: 6, title: "深海", tag: "动画", color: "purple" },
+  { id: 7, title: "熊出没·伴我熊芯", tag: "动画", color: "cyan" },
+  { id: 8, title: "交换人生", tag: "喜剧", color: "pink" },
+  { id: 9, title: "红海行动2", tag: "动作", color: "red" },
+  { id: 10, title: "飞驰人生2", tag: "喜剧", color: "orange" },
+  { id: 11, title: "第二十条", tag: "剧情", color: "yellow" },
+  { id: 12, title: "周处除三害", tag: "犯罪", color: "blue" },
+  { id: 13, title: "沙丘2", tag: "科幻", color: "green" },
+  { id: 14, title: "奥本海默", tag: "传记", color: "purple" },
+  { id: 15, title: "芭比", tag: "喜剧", color: "pink" },
+  { id: 16, title: "蜘蛛侠：纵横宇宙", tag: "动画", color: "cyan" },
+  { id: 17, title: "灌篮高手", tag: "运动", color: "red" },
+  { id: 18, title: "铃芽之旅", tag: "动画", color: "orange" },
+  { id: 19, title: "长安三万里", tag: "动画", color: "yellow" },
+  { id: 20, title: "封神第一部", tag: "奇幻", color: "blue" },
+]
+
+// Mock data for categories
+const categoryData = {
+  movie: {
+    title: "电影",
+    icon: "🎬",
+    items: [
+      { id: 1, title: "流浪地球2", tag: "科幻" },
+      { id: 2, title: "满江红", tag: "喜剧" },
+      { id: 3, title: "无名", tag: "剧情" },
+      { id: 4, title: "新神榜：杨戬", tag: "动画" },
+      { id: 5, title: "深海", tag: "动画" },
+      { id: 6, title: "熊出没·伴我熊芯", tag: "动画" },
+      { id: 7, title: "交换人生", tag: "喜剧" },
+      { id: 8, title: "红海行动2", tag: "动作" },
+    ]
+  },
+  music: {
+    title: "音乐",
+    icon: "🎵",
+    items: [
+      { id: 1, title: "周杰伦全集", tag: "华语" },
+      { id: 2, title: "陈奕迅精选", tag: "华语" },
+      { id: 3, title: "Taylor Swift", tag: "欧美" },
+      { id: 4, title: "BTS防弹少年团", tag: "韩流" },
+      { id: 5, title: "古典音乐精选", tag: "古典" },
+      { id: 6, title: "摇滚经典合集", tag: "摇滚" },
+      { id: 7, title: "电子音乐合集", tag: "电子" },
+      { id: 8, title: "民谣小清新", tag: "民谣" },
+    ]
+  },
+  software: {
+    title: "软件",
+    icon: "💻",
+    items: [
+      { id: 1, title: "Adobe Creative Suite", tag: "设计" },
+      { id: 2, title: "Microsoft Office", tag: "办公" },
+      { id: 3, title: "Visual Studio Code", tag: "开发" },
+      { id: 4, title: "Python编程教程", tag: "学习" },
+      { id: 5, title: "Photoshop教程", tag: "设计" },
+      { id: 6, title: "PR剪辑教程", tag: "视频" },
+      { id: 7, title: "C4D建模教程", tag: "3D" },
+      { id: 8, title: "After Effects教程", tag: "特效" },
+    ]
+  },
+  documentary: {
+    title: "纪录片",
+    icon: "📹",
+    items: [
+      { id: 1, title: "地球脉动", tag: "自然" },
+      { id: 2, title: "人类星球", tag: "人文" },
+      { id: 3, title: "蓝色星球2", tag: "海洋" },
+      { id: 4, title: "王朝", tag: "动物" },
+      { id: 5, title: "影响世界的中国植物", tag: "植物" },
+      { id: 6, title: "手术两百年", tag: "医学" },
+      { id: 7, title: "辉煌中国", tag: "国家" },
+      { id: 8, title: "大国重器", tag: "工业" },
+    ]
+  },
+  tutorial: {
+    title: "教程",
+    icon: "📚",
+    items: [
+      { id: 1, title: "Python入门教程", tag: "编程" },
+      { id: 2, title: "JavaScript高级", tag: "编程" },
+      { id: 3, title: "React从零到一", tag: "前端" },
+      { id: 4, title: "Vue3实战教程", tag: "前端" },
+      { id: 5, title: "Node.js后端开发", tag: "后端" },
+      { id: 6, title: "Docker容器技术", tag: "运维" },
+      { id: 7, title: "机器学习入门", tag: "AI" },
+      { id: 8, title: "数据分析实战", tag: "数据" },
+    ]
+  },
+  game: {
+    title: "游戏",
+    icon: "🎮",
+    items: [
+      { id: 1, title: "赛博朋克2077", tag: "RPG" },
+      { id: 2, title: "艾尔登法环", tag: "动作" },
+      { id: 3, title: "战神4", tag: "动作" },
+      { id: 4, title: "塞尔达传说", tag: "冒险" },
+      { id: 5, title: "怪物猎人世界", tag: "动作" },
+      { id: 6, title: "巫师3", tag: "RPG" },
+      { id: 7, title: "GTA5", tag: "开放世界" },
+      { id: 8, title: "只狼", tag: "动作" },
+    ]
+  },
+  other: {
+    title: "其他",
+    icon: "📦",
+    items: [
+      { id: 1, title: "电子书合集", tag: "文学" },
+      { id: 2, title: "有声书精选", tag: "听书" },
+      { id: 3, title: "播客合集", tag: "音频" },
+      { id: 4, title: "素材资源", tag: "设计" },
+      { id: 5, title: "字体大全", tag: "设计" },
+      { id: 6, title: "图片素材库", tag: "设计" },
+      { id: 7, title: "模板资源", tag: "办公" },
+      { id: 8, title: "课程资料", tag: "学习" },
+    ]
+  }
+}
+
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("")
   const [isSearching, setIsSearching] = useState(false)
@@ -218,7 +344,7 @@ export default function Home() {
             </p>
           </div>
           
-          <HotResources />
+          <HotResources items={hotResources} />
         </div>
       </section>
 
@@ -232,7 +358,14 @@ export default function Home() {
             </p>
           </div>
           
-          <CategorySection activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
+          <CategorySection 
+            title="电影" 
+            icon="🎬" 
+            items={categoryData.movie.items} 
+            category="movie"
+            activeCategory={activeCategory} 
+            onCategoryChange={setActiveCategory} 
+          />
         </div>
       </section>
 

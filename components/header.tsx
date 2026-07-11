@@ -3,9 +3,11 @@ import { Search, Moon, Sun, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useTheme } from "next-themes"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 interface HeaderProps {
-  onSearch: (query: string) => void
+  onSearch?: (query: string) => void
   isLoading?: boolean
 }
 
@@ -13,20 +15,25 @@ export function Header({ onSearch, isLoading = false }: HeaderProps) {
   const [query, setQuery] = useState("")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { theme, setTheme } = useTheme()
+  const router = useRouter()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (query.trim()) {
-      onSearch(query.trim())
+      if (onSearch) {
+        onSearch(query.trim())
+      } else {
+        router.push(`/search?q=${encodeURIComponent(query.trim())}`)
+      }
     }
   }
 
   const navItems = [
-    { label: "首页", href: "#" },
-    { label: "电影", href: "#movies" },
-    { label: "音乐", href: "#music" },
-    { label: "软件", href: "#software" },
-    { label: "教程", href: "#tutorials" },
+    { label: "首页", href: "/" },
+    { label: "电影", href: "/search?category=movie" },
+    { label: "音乐", href: "/search?category=music" },
+    { label: "软件", href: "/search?category=software" },
+    { label: "教程", href: "/search?category=documentary" },
   ]
 
   return (
@@ -43,13 +50,13 @@ export function Header({ onSearch, isLoading = false }: HeaderProps) {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.label}
               href={item.href}
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -124,14 +131,14 @@ export function Header({ onSearch, isLoading = false }: HeaderProps) {
             {/* Mobile Nav Items */}
             <nav className="flex flex-col space-y-2">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.label}
                   href={item.href}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded-md hover:bg-muted"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
