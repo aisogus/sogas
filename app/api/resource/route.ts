@@ -9,13 +9,26 @@ const PAN_SOU_API_URL = process.env.PAN_SOU_API_URL || "http://124.220.76.89:808
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const resourceId = params.id
+    // Wait for params in Next.js 15+
+    const resolvedParams = await params
+    const resourceId = resolvedParams.id
     
-    // In a real implementation, we would fetch the specific resource
-    // For now, we'll search for resources with the ID as query
+    // If no resource ID is provided, return an error
+    if (!resourceId) {
+      return NextResponse.json(
+        { 
+          code: 400, 
+          message: "Resource ID is required", 
+          data: null 
+        },
+        { status: 400 }
+      )
+    }
+    
+    // Search for the specific resource
     const response = await fetch(`${PAN_SOU_API_URL}/search?q=${encodeURIComponent(resourceId)}&page=1&size=1`, {
       method: "GET",
       headers: {
@@ -94,3 +107,7 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+
+// Export config for route
+export const dynamic = "force-dynamic"
+export const runtime = "nodejs"
