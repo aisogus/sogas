@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import { Flame } from "lucide-react"
+import Link from "next/link"
 
 interface HotResourceItem {
   id: number
@@ -49,16 +50,17 @@ export function HotResources({ items }: HotResourcesProps) {
             <span className="text-muted-foreground cursor-pointer hover:text-primary transition-colors">豆瓣热门</span>
           </div>
         </div>
-        <a href="#" className="text-primary text-sm hover:underline">
-          更多 {">"}
-        </a>
+        <Link href="/search" className="text-primary text-sm hover:underline">
+          更多 {"›"}
+        </Link>
       </div>
 
       {/* 3列网格布局 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-1">
         {items.map((item) => (
-          <div
+          <Link
             key={item.id}
+            href={`/search?q=${encodeURIComponent(item.title)}`}
             className="flex items-center gap-3 py-2 group cursor-pointer hover:bg-muted/30 rounded px-1 -mx-1 transition-colors"
           >
             <span className={cn("w-5 text-sm tabular-nums", getNumberColor(item.id))}>
@@ -85,7 +87,7 @@ export function HotResources({ items }: HotResourcesProps) {
             >
               {item.tag}
             </span>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
