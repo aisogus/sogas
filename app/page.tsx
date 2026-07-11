@@ -8,6 +8,8 @@ import { Footer } from "@/components/footer"
 import { AlertBanner } from "@/components/alert-banner"
 import { FloatingButtons } from "@/components/floating-buttons"
 import { Search, TrendingUp, Film, Music, Code, BookOpen, Zap, Shield, Globe, Star } from "lucide-react"
+import { SearchBar } from "@/components/search-bar"
+import { ResourceCard } from "@/components/resource-card"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
