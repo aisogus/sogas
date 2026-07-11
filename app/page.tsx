@@ -7,28 +7,36 @@ import { CategorySection } from "@/components/category-section"
 import { Footer } from "@/components/footer"
 import { AlertBanner } from "@/components/alert-banner"
 import { FloatingButtons } from "@/components/floating-buttons"
-import { Search, TrendingUp, Film, Music, Code, BookOpen, Zap, Shield, Globe, Star } from "lucide-react"
 import { SearchBar } from "@/components/search-bar"
 import { ResourceCard } from "@/components/resource-card"
+import { CategoryNav } from "@/components/category-nav"
+import { Pagination } from "@/components/pagination"
+import { EmptyState } from "@/components/empty-state"
+import { LoadingState } from "@/components/loading-state"
+import { Search, TrendingUp, Film, Music, Code, BookOpen, Zap, Shield, Globe, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("")
   const [isSearching, setIsSearching] = useState(false)
-  const [searchResults, setSearchResults] = useState(null)
+  const [searchResults, setSearchResults] = useState<any>(null)
   const [activeCategory, setActiveCategory] = useState("all")
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
 
   const handleSearch = async (query: string) => {
     setSearchQuery(query)
     setIsSearching(true)
+    setCurrentPage(1)
     
     try {
-      const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&type=all&page=1&size=20`)
+      const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&type=all&page=${currentPage}&size=20`)
       const data = await response.json()
       
       if (data.code === 200) {
         setSearchResults(data.data)
+        setTotalPages(Math.ceil((data.data?.total || 0) / 20))
       } else {
         console.error("Search failed:", data.message)
       }
@@ -36,6 +44,13 @@ export default function Home() {
       console.error("Search error:", error)
     } finally {
       setIsSearching(false)
+    }
+  }
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+    if (searchQuery) {
+      handleSearch(searchQuery)
     }
   }
 
@@ -106,6 +121,11 @@ export default function Home() {
               <br />
               电影、音乐、软件、教程应有尽有
             </p>
+
+            {/* Search Bar */}
+            <div className="mb-12">
+              <SearchBar onSearch={handleSearch} isLoading={isSearching} />
+            </div>
             
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
@@ -150,38 +170,39 @@ export default function Home() {
                 共找到 {searchResults.total || 0} 条结果
               </div>
             </div>
-            
-            {searchResults.items && searchResults.items.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {searchResults.items.map((item: any, index: number) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-                    <CardHeader>
-                      <CardTitle className="line-clamp-2">{item.name}</CardTitle>
-                      <CardDescription className="flex items-center gap-2">
-                        <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                          {item.type}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          {item.size}
-                        </span>
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
-                        {item.description || "暂无描述"}
-                      </p>
-                      <Button className="w-full" variant="outline" size="sm">
-                        查看详情
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+
+            {/* Category Navigation */}
+            <CategoryNav 
+              activeCategory={activeCategory} 
+              onCategoryChange={setActiveCategory} 
+            />
+
+            {isSearching ? (
+              <LoadingState />
+            ) : searchResults.items && searchResults.items.length > 0 ? (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {searchResults.items.map((item: any, index: number) => (
+                    <ResourceCard key={index} item={item} />
+                  ))}
+                </div>
+                
+                {/* Pagination */}
+                <Pagination 
+                  currentPage={currentPage} 
+                  totalPages={totalPages} 
+                  onPageChange={handlePageChange} 
+                />
+              </>
             ) : (
-              <div className="text-center py-12">
-                <Search className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
-                <p className="text-muted-foreground">未找到相关资源</p>
-              </div>
+              <EmptyState 
+                title="未找到相关资源"
+                description="试试其他关键词或浏览分类"
+                onAction={() => {
+                  setSearchQuery("")
+                  setSearchResults(null)
+                }}
+              />
             )}
           </div>
         </section>
@@ -227,7 +248,10 @@ export default function Home() {
               <Button 
                 size="lg" 
                 variant="secondary"
-                onClick={() => document.querySelector('input[type="search"]')?.focus()}
+                onClick={() => {
+                  const searchInput = document.querySelector('input[type="search"]') as HTMLInputElement
+                  searchInput?.focus()
+                }}
               >
                 <Search className="w-5 h-5 mr-2" />
                 立即搜索
